@@ -1,0 +1,8 @@
+{
+  "designTimeServices": [
+    {
+      "serviceName": "Microsoft.EntityFrameworkCore.Design.DesignTimeServices",
+      "assemblyName": "Microsoft.EntityFrameworkCore.Design"
+    }
+  ]
+}
