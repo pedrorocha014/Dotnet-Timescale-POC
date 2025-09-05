@@ -1,110 +1,25 @@
 @TimescaleDb_POC_HostAddress = http://localhost:5035
 
-# Weather Forecast
-GET {{TimescaleDb_POC_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
-
-# Error Log API Examples
-
-# Listar todos os logs de erro
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLog
-Accept: application/json
-
-###
-
-# Buscar log por timestamp específico
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLog/2024-01-15T10:30:00Z
-Accept: application/json
-
-###
-
-# Criar novo log de erro
-POST {{TimescaleDb_POC_HostAddress}}/api/ErrorLog
-Content-Type: application/json
-
-{
-  "time": "2024-01-15T10:30:00Z",
-  "message": "Erro de conexão com banco de dados",
-  "exception_type": "DatabaseConnectionException"
-}
-
-###
-
-# Busca avançada por tipo de exceção
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLog/search?exceptionType=DatabaseConnectionException
-Accept: application/json
-
-###
-
-# Busca por período de tempo
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLog/search?startTime=2024-01-15T00:00:00Z&endTime=2024-01-15T23:59:59Z
-Accept: application/json
-
-###
-
-# Atualizar log existente
-PUT {{TimescaleDb_POC_HostAddress}}/api/ErrorLog/2024-01-15T10:30:00Z
-Content-Type: application/json
-
-{
-  "time": "2024-01-15T10:30:00Z",
-  "message": "Erro de conexão com banco de dados - RESOLVIDO",
-  "exception_type": "DatabaseConnectionException"
-}
-
-###
-
-# Deletar log
-DELETE {{TimescaleDb_POC_HostAddress}}/api/ErrorLog/2024-01-15T10:30:00Z
-
-###
-
-# Error Log Statistics API Examples
+# Error Log Statistics API
 
 # Estatísticas por hora (todos os tipos de exceção)
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats/hourly
+GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats
 Accept: application/json
 
 ###
 
-# Estatísticas por hora com filtros
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats/hourly?startTime=2024-01-15T00:00:00Z&endTime=2024-01-15T23:59:59Z
+# Estatísticas por hora com filtros de tempo
+GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats?startTime=2024-01-15T00:00:00Z&endTime=2024-01-15T23:59:59Z
 Accept: application/json
 
 ###
 
 # Estatísticas por hora para um tipo específico de exceção
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats/hourly?exceptionType=DatabaseConnectionException
+GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats?exceptionType=DatabaseConnectionException
 Accept: application/json
 
 ###
 
-# Resumo por hora (total de erros e tipos únicos)
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats/hourly/summary
+# Estatísticas por hora com todos os filtros
+GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats?startTime=2024-01-15T00:00:00Z&endTime=2024-01-15T23:59:59Z&exceptionType=DatabaseConnectionException
 Accept: application/json
-
-###
-
-# Resumo por hora com filtros de tempo
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats/hourly/summary?startTime=2024-01-15T00:00:00Z&endTime=2024-01-15T23:59:59Z
-Accept: application/json
-
-###
-
-# Estatísticas por tipo de exceção
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats/exception-types
-Accept: application/json
-
-###
-
-# Estatísticas por tipo de exceção com filtros de tempo
-GET {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats/exception-types?startTime=2024-01-15T00:00:00Z&endTime=2024-01-15T23:59:59Z
-Accept: application/json
-
-###
-
-# Refresh manual do continuous aggregate
-POST {{TimescaleDb_POC_HostAddress}}/api/ErrorLogStats/refresh
-Content-Type: application/json
